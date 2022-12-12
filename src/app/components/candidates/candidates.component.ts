@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { AddCandidateDialog } from 'src/app/dialogs/add-candidate/add-candidate.component';
+import { AddCandidateDialog } from 'src/app/shared/dialogs/add-candidate/add-candidate.component';
 import { CandidateService } from 'src/app/store/candidate/service';
 import { ICandidate } from '../../store/candidate/type';
 
@@ -10,7 +10,7 @@ import { ICandidate } from '../../store/candidate/type';
   templateUrl: './candidates.component.html',
   styleUrls: ['./candidates.component.scss']
 })
-export class CandidatesComponent implements OnInit {
+export class CandidatesComponent implements OnDestroy {
   public displayedColumns: string[] = ['demo-name', 'demo-votes'];
   public subscription$: Subscription = new Subscription();
 
@@ -24,8 +24,8 @@ export class CandidatesComponent implements OnInit {
     )
   }
 
-  ngOnInit(): void {
-    // this.dataSource = this.candidateService.getCandidates();
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
   }
 
   openDialog() {

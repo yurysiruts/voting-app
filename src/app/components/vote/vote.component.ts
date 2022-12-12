@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CandidateService } from 'src/app/store/candidate/service';
 import { ICandidate } from 'src/app/store/candidate/type';
@@ -31,6 +31,10 @@ export class VoteComponent {
         this.candidates = candidates;
       })
     )
+  }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
   }
 
   public onSubmit(form: any) {
