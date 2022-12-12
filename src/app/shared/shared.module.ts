@@ -10,7 +10,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AddCandidateDialog } from "./dialogs/add-candidate/add-candidate.component";
 import { AddVoterDialog } from "./dialogs/add-voter/add-voter.component";
 
@@ -24,7 +23,6 @@ const sharedModules = [
   MatButtonModule,
   MatToolbarModule,
   MatExpansionModule,
-  BrowserAnimationsModule,
   MatTableModule,
   MatIconModule,
   MatSelectModule,
