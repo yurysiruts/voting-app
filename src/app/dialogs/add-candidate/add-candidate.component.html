@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Add new candidate</h1>
+<form (submit)="$event.preventDefault()" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill" class="mr-4">
+    <mat-label>Name</mat-label>
+    <input matInput #first  [formControl]="name">
+  </mat-form-field>
+  <button mat-raised-button>Submit</button>
+</form>

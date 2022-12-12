@@ -1,0 +1,28 @@
+<div>
+  <h1>Vote!</h1>
+  <form [formGroup]="voteForm" #myForm="ngForm" (ngSubmit)="onSubmit(myForm)">
+    <div class="flex flex-col md:flex-row">
+      <mat-form-field appearance="fill" class="md:mr-4">
+        <mat-label>I am</mat-label>
+        <mat-select formControlName="voterName">
+          <mat-option *ngFor="let voter of voters" [value]="voter.name" [disabled]="voter.voted">
+            {{ voter.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill" class="md:mr-6"> 
+        <mat-label>I vote for</mat-label>
+        <mat-select formControlName="candidateName">
+          <mat-option *ngFor="let candidate of candidates" [value]="candidate.name">
+            {{ candidate.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <div class="w-full">
+        <button mat-raised-button color="primary" class="md:h-[52px] w-full md:w-auto">Submit!</button>
+      </div>
+    </div>
+  </form>
+</div>
