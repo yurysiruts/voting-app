@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { ICandidate } from "./type";
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +17,8 @@ export class CandidateService {
 
   public patchCandidate(data: any) {
     const candidateIndex = this.candidatesSource.getValue().findIndex(candidate => candidate.name === data.candidateName);
-    this.candidatesSource.getValue()[candidateIndex] = { name: this.candidatesSource.getValue()[candidateIndex].name, votes: ++this.candidatesSource.getValue()[candidateIndex].votes };
+    const candidate = this.candidatesSource.getValue()[candidateIndex]; 
+    this.candidatesSource.getValue()[candidateIndex] = { name: candidate.name, votes: ++candidate.votes };
     
     this.candidatesSource.next([...this.candidatesSource.getValue()])
   }
