@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddCandidateDialog } from 'src/app/dialogs/add-candidate/add-candidate.component';
-import { AppService } from 'src/app/store/app/service';
-import { ICandidate } from '../../store/app/type';
+import { CandidateService } from 'src/app/store/candidate/service';
+import { ICandidate } from '../../store/candidate/type';
 
 @Component({
   selector: 'app-candidates',
@@ -16,18 +16,16 @@ export class CandidatesComponent implements OnInit {
 
   public dataSource: ICandidate[] = [];
 
-  constructor(public dialog: MatDialog, private appService: AppService) {
+  constructor(public dialog: MatDialog, private candidateService: CandidateService) {
     this.subscription$.add(
-      this.appService.candidatesChanged.subscribe(
-        (candidates: ICandidate[]) => {
-          this.dataSource = candidates;
-        }
-      )
+      this.candidateService.candidates$.subscribe((candidates: ICandidate[]) => {
+        this.dataSource = candidates;
+      })
     )
   }
 
   ngOnInit(): void {
-    this.dataSource = this.appService.getCandidates();
+    // this.dataSource = this.candidateService.getCandidates();
   }
 
   openDialog() {

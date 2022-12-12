@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AppService } from 'src/app/store/app/service';
-import { ICandidate, IVoter } from 'src/app/store/app/type';
-interface Food {
-  value: string;
-  viewValue: string;
-}
+import { CandidateService } from 'src/app/store/candidate/service';
+import { ICandidate } from 'src/app/store/candidate/type';
+import { VoterService } from 'src/app/store/voter/service';
+import { IVoter } from 'src/app/store/voter/type';
+
 @Component({
   selector: 'app-vote',
   templateUrl: './vote.component.html',
   styleUrls: ['./vote.component.scss']
 })
-export class VoteComponent implements OnInit {
+export class VoteComponent {
   public subscription$: Subscription = new Subscription();
   public voteForm = this.fb.group({
     voterName: [null, Validators.required],
@@ -21,31 +20,22 @@ export class VoteComponent implements OnInit {
   public voters: IVoter[] = [];
   public candidates: ICandidate[] = [];
 
-  constructor(private fb: FormBuilder, private appService: AppService) {
+  constructor(private fb: FormBuilder, private voterService: VoterService, private candidateService: CandidateService) {
     this.subscription$.add(
-      this.appService.votersChanged.subscribe(
-        (voters: IVoter[]) => {
-          this.voters = voters;
-        }
-      )
+      this.voterService.voters$.subscribe((voters: IVoter[]) => {
+        this.voters = voters;
+      })
     )
     this.subscription$.add(
-      this.appService.candidatesChanged.subscribe(
-        (candidates: ICandidate[]) => {
-          this.candidates = candidates;
-        }
-      )
+      this.candidateService.candidates$.subscribe((candidates: ICandidate[]) => {
+        this.candidates = candidates;
+      })
     )
-  }
-
-  ngOnInit(): void {
-    this.voters = this.appService.getVoters();
-    this.candidates = this.appService.getCandidates();
   }
 
   public onSubmit(form: any) {
-    console.log(this.voteForm.value);
-    this.appService.patchVote(this.voteForm.value);
+    this.voterService.patchVoter(this.voteForm.value);
+    this.candidateService.patchCandidate(this.voteForm.value);
     form.resetForm();
   }
 }

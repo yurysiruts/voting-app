@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
-import { AppService } from "src/app/store/app/service";
+import { VoterService } from "src/app/store/voter/service";
 
 @Component({
   selector: 'add-voter',
@@ -11,15 +11,14 @@ import { AppService } from "src/app/store/app/service";
 export class AddVoterDialog {
   name = new FormControl('');
 
-  constructor(public dialog: MatDialog, private appService: AppService) {}
+  constructor(public dialog: MatDialog, private voterService: VoterService) {}
 
   ngOnInit() {}
 
   public onSubmit() {
     if (this.name.value) {
       this.dialog.closeAll();
-      console.log(this.name.value);
-      this.appService.addVoter({ name: this.name.value, voted: false })
+      this.voterService.addVoter({ name: this.name.value, voted: false })
     }
   }
 }

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddVoterDialog } from 'src/app/dialogs/add-voter/add-voter.component';
-import { AppService } from 'src/app/store/app/service';
-import { IVoter } from '../../store/app/type';
+import { VoterService } from 'src/app/store/voter/service';
+import { IVoter } from 'src/app/store/voter/type';
 
 @Component({
   selector: 'app-voters',
@@ -16,18 +16,16 @@ export class VotersComponent implements OnInit {
 
   public dataSource: IVoter[] = [];
 
-  constructor(public dialog: MatDialog, private appService: AppService) {
+  constructor(public dialog: MatDialog, private voterService: VoterService) {
     this.subscription$.add(
-      this.appService.votersChanged.subscribe(
-        (voters: IVoter[]) => {
-          this.dataSource = voters;
-        }
-      )
+      this.voterService.voters$.subscribe((voters: IVoter[]) => {
+        this.dataSource = voters;
+      })
     )
   }
 
   ngOnInit(): void {
-    this.dataSource = this.appService.getVoters();
+    // this.dataSource = this.voterService.getVoters();
   }
 
   openDialog() {
