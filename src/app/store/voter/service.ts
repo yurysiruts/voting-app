@@ -13,8 +13,9 @@ export class VoterService {
   }
 
   public patchVoter(data: any) {
-    const voterIndex = this.votersSource.getValue().findIndex(voter => voter.name === data.voterName);
-    this.votersSource.getValue()[voterIndex] = { name: this.votersSource.getValue()[voterIndex].name, voted: true };
+    const voterIndex = this.votersSource.getValue().findIndex(voter => voter.id === data.voterId);
+    const voter = this.votersSource.getValue()[voterIndex]; 
+    this.votersSource.getValue()[voterIndex] = { id: voter.id, name: voter.name, voted: true };
     
     this.votersSource.next([...this.votersSource.getValue()])
   }

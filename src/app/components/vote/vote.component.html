@@ -4,8 +4,8 @@
     <div class="flex flex-col md:flex-row">
       <mat-form-field appearance="fill" class="md:mr-4">
         <mat-label>I am</mat-label>
-        <mat-select formControlName="voterName">
-          <mat-option *ngFor="let voter of voters" [value]="voter.name" [disabled]="voter.voted">
+        <mat-select formControlName="voterId">
+          <mat-option *ngFor="let voter of voters" [value]="voter.id" [disabled]="voter.voted">
             {{ voter.name }}
           </mat-option>
         </mat-select>
@@ -13,8 +13,8 @@
     
       <mat-form-field appearance="fill" class="md:mr-6"> 
         <mat-label>I vote for</mat-label>
-        <mat-select formControlName="candidateName">
-          <mat-option *ngFor="let candidate of candidates" [value]="candidate.name">
+        <mat-select formControlName="candidateId">
+          <mat-option *ngFor="let candidate of candidates" [value]="candidate.id">
             {{ candidate.name }}
           </mat-option>
         </mat-select>

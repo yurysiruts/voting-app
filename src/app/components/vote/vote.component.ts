@@ -14,8 +14,8 @@ import { IVoter } from 'src/app/store/voter/type';
 export class VoteComponent {
   public subscription$: Subscription = new Subscription();
   public voteForm = this.fb.group({
-    voterName: [null, Validators.required],
-    candidateName: [null, Validators.required],
+    voterId: [null, Validators.required],
+    candidateId: [null, Validators.required],
   });
   public voters: IVoter[] = [];
   public candidates: ICandidate[] = [];

@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { CandidateService } from "src/app/store/candidate/service";
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'add-candidate',
@@ -18,7 +19,7 @@ export class AddCandidateDialog {
   public onSubmit() {
     if (this.name.value) {
       this.dialog.closeAll();
-      this.candidateService.addCandidate({ name: this.name.value, votes: 0 });
+      this.candidateService.addCandidate({ id: uuidv4(), name: this.name.value, votes: 0 });
     }
   }
 }
